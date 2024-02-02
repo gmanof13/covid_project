@@ -6,7 +6,21 @@ from pandas import json_normalize
 import json
 from datetime import datetime, timedelta
 
+def create_json_dir():
+    pass 
+
+def api_to_json_dir():
+    pass
+
+def create_db():
+    pass 
+
+def json_dir_to_db():
+    pass
+
+# using some of this function later 
 def pull_from_covid_api():
+
 
     url =  "https://covid-19-statistics.p.rapidapi.com/reports"
 
@@ -26,16 +40,10 @@ def pull_from_covid_api():
 
     # while current_date <= end_date:
     response = requests.get(url,headers=headers,params=querystring)
-
-    if response.status_code == 200:
-
-        data = response.json()
-        data = data['data']
-        df = pd.DataFrame(data)           
-        dfs.append(df)
-
-    else:
-        print("Failed to fetch data from the API")
+    data = response.json()
+    data = data['data']
+    df = pd.DataFrame(data)           
+    dfs.append(df)
 
     # current_date += timedelta(days=1)
     
@@ -44,9 +52,3 @@ def pull_from_covid_api():
     print(final_df.info())
 
 
-def main():
-
-    pull_from_covid_api()
-
-
-main()
