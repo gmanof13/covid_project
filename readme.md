@@ -1,4 +1,4 @@
-# Api to DB
+# API to DB
 
 Functions:
 - create folder for raw json outputs
