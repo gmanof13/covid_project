@@ -5,9 +5,16 @@ from io import StringIO
 from pandas import json_normalize
 import json
 from datetime import datetime, timedelta
+import os
+import shutil
 
 def create_json_dir():
-    pass 
+
+    if os.path.exists('json_dir'):
+        shutil.rmtree('json_dir') 
+        os.mkdir('json_dir')
+    else:
+        os.mkdir('json_dir')
 
 def api_to_json_dir():
     pass
@@ -52,3 +59,7 @@ def pull_from_covid_api():
     print(final_df.info())
 
 
+def main():
+    create_json_dir()
+
+main()
