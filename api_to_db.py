@@ -8,58 +8,47 @@ from datetime import datetime, timedelta
 import os
 import shutil
 
-def create_json_dir():
+def create_json_dir(testing: bool = True):
 
-    if os.path.exists('json_dir'):
-        shutil.rmtree('json_dir') 
-        os.mkdir('json_dir')
+    if testing == True:
+
+        if os.path.exists('json_dir'):
+            shutil.rmtree('json_dir') 
+            os.mkdir('json_dir')
+        else:
+            os.mkdir('json_dir')
     else:
-        os.mkdir('json_dir')
 
+        pass 
+
+# todo: need to loop through querystring data field to append multiple JSONs by date. Then, at some point, check for missing dates???
 def api_to_json_dir():
-    pass
 
+    url =  "https://covid-19-statistics.p.rapidapi.com/reports"
+    
+    headers = {
+	"X-RapidAPI-Key": "c448282c1fmsh57d073f04cc58a5p155dbfjsn2d33a8bc576c",
+	"X-RapidAPI-Host": "covid-19-statistics.p.rapidapi.com" }
+
+    querystring = {"date":"2020-04-16"}
+
+    response = requests.get(url,headers=headers,params=querystring)
+
+    data = response.json()
+
+    with open("json_dir/covid.json","w") as file:
+        json.dump(data,file)
+    
 def create_db():
     pass 
 
 def json_dir_to_db():
     pass
 
-# using some of this function later 
-def pull_from_covid_api():
-
-
-    url =  "https://covid-19-statistics.p.rapidapi.com/reports"
-
-    headers = {
-	"X-RapidAPI-Key": "c448282c1fmsh57d073f04cc58a5p155dbfjsn2d33a8bc576c",
-	"X-RapidAPI-Host": "covid-19-statistics.p.rapidapi.com" }
-
-    # querystring = {"city_name":"Autauga","region_province":"Alabama","iso":"USA","region_name":"US","q":"US Alabama","date":"2020-04-16"}
-    querystring = {"date":"2020-04-16"}
-
-    dfs = []
-    
-    # start_date = datetime(2019, 1, 1)
-    # end_date = datetime(2023, 12, 31)
-
-    # current_date = start_date
-
-    # while current_date <= end_date:
-    response = requests.get(url,headers=headers,params=querystring)
-    data = response.json()
-    data = data['data']
-    df = pd.DataFrame(data)           
-    dfs.append(df)
-
-    # current_date += timedelta(days=1)
-    
-    final_df = pd.concat(dfs, ignore_index=True)
-
-    print(final_df.info())
-
-
 def main():
-    create_json_dir()
 
-main()
+    create_json_dir(testing=False)
+    api_to_json_dir()
+
+if __name__ == "__main__":
+    main()
