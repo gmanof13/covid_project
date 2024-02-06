@@ -9,7 +9,7 @@ def test_db_pandas(table: str):
 
 
 def show_all_tables():
-    
+
     con = sqlite3.connect('covid.db')
     cur = con.cursor()
     cur.execute('''
@@ -26,5 +26,4 @@ df_test = test_db_pandas(table='covid_tbl')
 
 show_tables_df = show_all_tables()
 
-print(show_tables_df)
-
+print(df_test)

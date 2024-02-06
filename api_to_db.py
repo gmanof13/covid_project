@@ -34,8 +34,11 @@ def api_to_json_dir():
     url =  "https://covid-19-statistics.p.rapidapi.com/reports"
     
     headers = {
+
 	"X-RapidAPI-Key": "c448282c1fmsh57d073f04cc58a5p155dbfjsn2d33a8bc576c",
-	"X-RapidAPI-Host": "covid-19-statistics.p.rapidapi.com" }
+	"X-RapidAPI-Host": "covid-19-statistics.p.rapidapi.com" 
+    
+    }
 
     querystring = {"date":"2020-04-16"}
 
@@ -74,6 +77,7 @@ def main():
     # api_to_json_dir()
     # create_db(testing=True)
     json_dir_to_db(db_name='covid_tbl')
+
 
 
 
