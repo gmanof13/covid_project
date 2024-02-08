@@ -24,7 +24,7 @@ def test_connection():
 
 def test_connection_2():
 
-`    engine = create_engine(
+    engine = create_engine(
         'postgresql+psycopg2://postgres:admin@localhost:5432/covid') 
 
     conn = engine.raw_connection()
