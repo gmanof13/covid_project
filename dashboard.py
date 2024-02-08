@@ -2,26 +2,18 @@ import sqlite3
 import streamlit as st 
 import pandas as pd
 import matplotlib.pyplot as plt
+from sqlalchemy import create_engine
 
-def return_covid_df():
+engine = create_engine('postgresql+psycopg2://postgres:admin@localhost:5432/covid')
 
-    table = 'covid_tbl'
-    conn = sqlite3.connect('covid.db')
-    df = pd.read_sql(f'select * from {table}',conn)
-    df['date']= pd.to_datetime(df['date'])
-    return df
-    conn.close()
-
-def return_time_series_graph(df: pd.DataFrame) -> None: 
-    st.line_chart(df[['date','confirmed']],x='date',y='confirmed')
 
 
 def main():
-
-    time_series_df = return_covid_df()
-    return_time_series_graph(time_series_df)
-    # return_time_series_graph(time_series_df)
     
+    df = pd.read_sql_query('select * from "covid_tbl"',con=engine)
+
+
+    print(df.info())
 
     
     
