@@ -1,0 +1,3 @@
+Exported from: https://simplemaps.com/data/us-zips
+
+Too lazy to pull from another API. 
